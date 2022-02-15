@@ -14,3 +14,5 @@ let%test _ = ( (miniML "../../exemples/exemple-09.mml") = (FrozenValue (Function
 let%test _ = ( (miniML "../../exemples/exemple-11.mml") = (IntegerValue 120))
 let%test _ = ( (miniML "../../exemples/exemple-12.mml") = (IntegerValue 120))
                
+let%test _ = ( (miniML "../../exemples/exemple-14.mml") = (ErrorValue TypeMismatchError))
+let%test _ = ( (miniML "../../exemples/exemple-15.mml") = (IntegerValue 4))
