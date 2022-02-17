@@ -1,0 +1,4 @@
+let h = ref ( ref (fun x -> x+1)) in (
+(let w = ref (h := ref (fun x -> x+2)) in
+let f = (ref (fun x -> (!x))) in ((!(let g = (ref (fun x -> x+1)) in (h:=g); (f))) (ref (fun x -> (!x)))) w);
+(!(!(h))) 1)

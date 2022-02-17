@@ -1,0 +1,6 @@
+let un = ref 1 in
+let f = (ref (fun x -> (!x))) in
+let h = ref ( ref (fun x -> x+((!(f))un))) in (
+(let w = ref (h := ref (fun x -> x+((!(f))un))) in
+(((!(f))(let g = (ref (fun x -> (un := (((!(f))un) + ((!(f))un)));x+((!(f))un))) in (h:=g); (f))) (f)) w);
+((!(f))((!(f))(h))) (!(f))un)
