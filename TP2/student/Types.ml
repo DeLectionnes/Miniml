@@ -296,12 +296,19 @@ let rec type_of_expr expr env =
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleFunction _env _par _body = ErrorType
+    ruleFunction _env _par _body = let new_type = newVariable() in
+      let t_body = (type_of_expr _body ((_par, new_type)::_env)) in
+      FunctionType(new_type, t_body)
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleCall _env _fct _par = ErrorType
-
+    ruleCall _env _fct _par = let type_par = type_of_expr _par _env in 
+      let type_func = type_of_expr _fct _env in
+      let tau1 = newVariable() in
+      let tau2 = newVariable() in
+      let _,url = unify type_func (FunctionType(tau1,tau2)) in
+      let _,uri = unify tau1 type_par in
+            if (uri && url) then tau2 else ErrorType
   and
     (* ..................................................................*)
     ruleLetrec env ident bvalue bin =
@@ -319,23 +326,38 @@ let rec type_of_expr expr env =
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleRef _env _expr = ErrorType
+    ruleRef _env _expr = let type_expr = type_of_expr  _expr _env in
+    match type_expr with
+    | ErrorType -> ErrorType
+    | _ -> ReferenceType(type_expr)
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleRead _env _expr = ErrorType
+    ruleRead _env _expr = let type_expr = type_of_expr _expr _env in
+    let tau = newVariable() in
+    let _,url = unify type_expr (ReferenceType(tau)) in 
+    if url then tau else ErrorType
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleWrite _env _left _right = ErrorType
+    ruleWrite _env _left _right = let type_l = type_of_expr _left _env in
+      let type_r = type_of_expr _right _env in
+      let _,url = unify type_l (ReferenceType(type_r)) in 
+      if url then UnitType else ErrorType
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleSequence _env _left _right = ErrorType
+    ruleSequence _env _left _right = let type_l = type_of_expr _left _env in
+    let _,url = unify type_l UnitType in
+    if url then let type_r = type_of_expr _right _env in type_r else ErrorType
 
   and
     (* ...............A COMPLETER .......................................*)
-    ruleWhile _env _cond _body = ErrorType
+    ruleWhile _env _cond _body = let type_cond = type_of_expr _cond _env in 
+    let type_body = type_of_expr _body _env in 
+    let _,url = unify type_cond BooleanType in
+    let _,uri = unify type_body UnitType in
+    if (url && uri) then UnitType else ErrorType
 
 (* ...........fin des regles d'inference..........................................*)
 ;;
