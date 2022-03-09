@@ -2,3 +2,5 @@
 _build/*
 **/._*
 **/*.class
+**/Lexer.java
+Java/fr.n7.stl.block/src/fr/n7/stl/block/Parser.java
