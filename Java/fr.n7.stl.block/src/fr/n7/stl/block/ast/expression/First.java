@@ -9,6 +9,8 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.type.*;
+
 
 /**
  * Abstract Syntax Tree node for an expression extracting the first component in a couple.
@@ -42,7 +44,7 @@ public class First implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in First.");
+		return this.target.collectAndBackwardResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +52,7 @@ public class First implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve undefined in First.");
+		return this.target.fullResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -58,7 +60,12 @@ public class First implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in First.");
+		Type paramType = this.target.getType();
+		if (paramType instanceof CoupleType){
+			return ((Couple) paramType).getFirst().getType();
+		}else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)

@@ -37,6 +37,14 @@ public class Couple implements Expression {
 		this.first = _first;
 		this.second = _second;
 	}
+
+	public Expression getFirst() {
+		return this.first;
+	}
+
+	public Expression getSecond() {
+		return this.second;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
