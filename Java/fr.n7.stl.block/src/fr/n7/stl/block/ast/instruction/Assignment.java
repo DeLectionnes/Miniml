@@ -57,8 +57,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		return true;
-		//return this.value.fullResolve(_scope);
+		return this.value.fullResolve(_scope) && this.assignable.fullResolve(_scope);
 	}
 
 	/* (non-Javadoc)

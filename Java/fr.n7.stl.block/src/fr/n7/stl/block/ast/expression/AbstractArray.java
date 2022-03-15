@@ -3,6 +3,7 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 
 /**
@@ -46,7 +47,7 @@ public abstract class AbstractArray implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "collect is undefined in Abstract Array.");
+		return this.array.collectAndBackwardResolve(_scope) && this.index.collectAndBackwardResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +55,7 @@ public abstract class AbstractArray implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "resolve is undefined in Abstract Array.");
+		return this.array.fullResolve(_scope) && this.index.fullResolve(_scope);
 	}
 	
 	/**
@@ -62,7 +63,13 @@ public abstract class AbstractArray implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in AbstractArray.");
+		if (this.index.getType().compatibleWith(AtomicType.IntegerType)) {
+			return this.array.getType();
+		} else {
+			System.out.println("Error : Type.");
+			return AtomicType.ErrorType;
+		}
+		
 	}
 
 }

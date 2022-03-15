@@ -49,7 +49,13 @@ public class TypeDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in TypeDeclaration.");
+		if (_scope.accepts(this)) {
+			_scope.register(this);
+			return true;
+		} else {
+			System.out.println("Error : Multiple declarations.");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -57,7 +63,7 @@ public class TypeDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in TypeDeclaration.");
+		return true;
 	}
 
 	/**

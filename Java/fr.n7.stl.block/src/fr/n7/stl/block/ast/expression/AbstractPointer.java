@@ -39,7 +39,7 @@ public abstract class AbstractPointer implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect is not implemented in AbstractPointer.");		
+		return this.pointer.collectAndBackwardResolve(_scope);	
 	}
 	
 	/* (non-Javadoc)
@@ -47,7 +47,7 @@ public abstract class AbstractPointer implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve is not implemented in AbstractPointer.");		
+		return this.pointer.fullResolve(_scope);		
 	}
 
 	/**
@@ -55,7 +55,7 @@ public abstract class AbstractPointer implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType is not implemented in PointerAccess.");
+		return this.pointer.getType();
 	}
 
 }
