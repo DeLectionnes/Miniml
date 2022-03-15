@@ -50,7 +50,13 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ConditionalExpression.");
+		boolean result_condition = this.condition.collectAndBackwardResolve(_scope);
+		boolean result_then = this.thenExpression.collectAndBackwardResolve(_scope);
+		if (this.elseExpression == null) {
+			boolean result_else = this.elseExpression.collectAndBackwardResolve(_scope);
+			return result_condition && result_else && result_then;
+		}
+		return result_condition && result_then;
 	}
 
 	/* (non-Javadoc)
@@ -58,8 +64,13 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ConditionalExpression.");
-	}
+		boolean result_condition = this.condition.fullResolve(_scope);
+		boolean result_then = this.thenExpression.fullResolve(_scope);
+		if (this.elseExpression == null) {
+			boolean result_else = this.elseExpression.fullResolve(_scope);
+			return result_condition && result_else && result_then;
+		}
+		return result_condition && result_then;	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -74,8 +85,14 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ConditionalExpression.");
-	}
+		boolean then_result = this.thenExpression.checkType();
+		boolean else_result = this.elseExpression.checkType();
+		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
+			return then_result && else_result;
+		} else {
+			System.out.println("Error : Type.");
+			return false;
+		}	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
