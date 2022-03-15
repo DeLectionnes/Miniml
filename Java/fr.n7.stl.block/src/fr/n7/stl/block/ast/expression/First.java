@@ -62,7 +62,7 @@ public class First implements Expression {
 	public Type getType() {
 		Type paramType = this.target.getType();
 		if (paramType instanceof CoupleType){
-			return ((Couple) paramType).getFirst().getType();
+			return ((CoupleType) paramType).getFirst();
 		}else {
 			return AtomicType.ErrorType;
 		}

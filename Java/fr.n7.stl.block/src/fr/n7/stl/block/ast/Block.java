@@ -57,7 +57,7 @@ public class Block {
 	 * @return Synthesized Semantics attribute that indicates if the identifier declaration are
 	 * allowed.
 	 */
-	public boolean collect(HierarchicalScope<Declaration> _scope) {
+	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
 		boolean result = true;
 		tds = new SymbolTable(_scope);
 		for (Instruction _instruction : this.instructions) {
@@ -73,7 +73,7 @@ public class Block {
 	 * @return Synthesized Semantics attribute that indicates if the identifier used in the
 	 * block have been previously defined.
 	 */
-	public boolean resolve(HierarchicalScope<Declaration> _scope) {
+	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
 		boolean result = true;
 		for (Instruction _instruction : this.instructions) {
 			result = result && _instruction.fullResolve(tds);

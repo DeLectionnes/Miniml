@@ -51,7 +51,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		return this.condition.collectAndBackwardResolve(_scope);
+		boolean result_condition = this.condition.collectAndBackwardResolve(_scope);
+		boolean result_then = this.thenBranch.collectAndBackwardResolve(_scope);
+		if (this.elseBranch == null) {
+			boolean result_else = this.elseBranch.collectAndBackwardResolve(_scope);
+			return result_condition && result_else && result_then;
+		}
+		return result_condition && result_then;
 	}
 	
 	/* (non-Javadoc)
@@ -59,7 +65,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		return this.condition.fullResolve(_scope);
+		boolean result_condition = this.condition.fullResolve(_scope);
+		boolean result_then = this.thenBranch.fullResolve(_scope);
+		if (this.elseBranch == null) {
+			boolean result_else = this.elseBranch.fullResolve(_scope);
+			return result_condition && result_else && result_then;
+		}
+		return result_condition && result_then;
 	}
 
 	/* (non-Javadoc)

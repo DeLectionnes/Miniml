@@ -19,21 +19,4 @@ test {
 		print p;
 	}
 	print j;
-
-	typedef int Entier;
-	typedef <int, int> PaireEntier;
-	PaireEntier p = < 5, 6>;
-	fst p += 1;
-	print p;
-
-
-	typedef struct pointeurs {
-		(void *) pointeur;
-		* (long *) log_shift;
-	}
-
-	typedef struct pointeurs pointeurs;
-	long i = 5.0;
-	pointeurs point = (pointeurs) {0, &i}
-	print point.log_shift;
 }
