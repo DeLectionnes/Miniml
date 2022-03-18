@@ -29,6 +29,16 @@ public class FunctionType implements Type {
 		}
 	}
 
+		/*Ajout des getters pour le function type */
+		public Type getResultType(){
+			return this.result;
+		}
+	
+		public List<Type> getArgsType(){
+			return this.parameters;
+		}
+	
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#equalsTo(fr.n7.stl.block.ast.Type)
 	 */
