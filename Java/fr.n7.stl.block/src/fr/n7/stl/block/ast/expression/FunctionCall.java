@@ -11,6 +11,7 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.FunctionType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
@@ -96,14 +97,22 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		boolean result = true;
 		List<Type> type_args = new ArrayList<Type>();
-		FunctionType functype = (FunctionType) this.function.getType();
-		for (int i = 0; i < this.arguments.size();i++) {
-			type_args.add(arguments.get(i).getType());
+		Type type = this.function.getType();
+		if (type instanceof FunctionCall) {
+			FunctionType functype = (FunctionType) this.function.getType();
+			for (int i = 0; i < this.arguments.size();i++) {
+				type_args.add(arguments.get(i).getType());
+			}
+			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
+			if (call_type.compatibleWith(functype)) {
+				return functype.getResultType();
+			} else {
+				return AtomicType.ErrorType;
+			}
+		} else  {
+			return AtomicType.ErrorType;
 		}
-		FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
-		
 	}
 
 	/* (non-Javadoc)

@@ -78,11 +78,17 @@ public abstract class AbstractConversion<TargetType extends AssignableExpression
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		boolean target_result = this.target.fullResolve(_scope);
+		boolean result = this.target.fullResolve(_scope);
 		if (type==null){
-			type = (Type) _scope.get(this.name);
+			Declaration decltype = _scope.get(this.name);
+			if (decltype instanceof Type) {
+				type = (Type) _scope.get(this.name);
+				return result;
+			} else {
+				return false;
+			}
 		}
-		return target_result && (type != null);
+		return result;
 	}
 
 	/* (non-Javadoc)
