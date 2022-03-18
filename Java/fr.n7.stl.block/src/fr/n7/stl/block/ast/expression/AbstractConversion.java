@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -18,7 +19,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
  * @author Marc Pantel
  *
  */
-public abstract class AbstractConversion<TargetType> implements Expression {
+public abstract class AbstractConversion<TargetType extends AssignableExpression> implements Expression {
 
 	protected TargetType target;
 	protected Type type;
@@ -49,10 +50,18 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getType()
-	 */
+	 */;
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in TypeConversion.");
+		if (this.type != null) {
+			if (this.type.compatibleWith(this.target.getType())) {
+				return this.type;
+			} else {
+				return AtomicType.ErrorType;
+			}
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -60,7 +69,8 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in TypeConversion.");
+		boolean target_result = this.target.collectAndBackwardResolve(_scope);
+		return target_result;
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +78,11 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve undefined in TypeConversion.");
+		boolean target_result = this.target.fullResolve(_scope);
+		if (type==null){
+			type = (Type) _scope.get(this.name);
+		}
+		return target_result && (type != null);
 	}
 
 	/* (non-Javadoc)

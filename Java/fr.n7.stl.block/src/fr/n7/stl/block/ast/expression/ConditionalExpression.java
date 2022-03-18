@@ -6,6 +6,7 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -85,13 +86,10 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		boolean then_result = this.thenExpression.checkType();
-		boolean else_result = this.elseExpression.checkType();
 		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
-			return then_result && else_result;
+			return  this.condition.getType();
 		} else {
-			System.out.println("Error : Type.");
-			return false;
+			return AtomicType.ErrorType;
 		}	}
 
 	/* (non-Javadoc)
