@@ -34,7 +34,17 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException( "equalsTo is undefined in FunctionType.");
+		boolean res = false;
+		if (_other instanceof FunctionType){
+			FunctionType other = (FunctionType) _other;
+			if (other != null && other.size() == this.parameters.size()) {
+				res = this.result.equalsTo(other.result);
+				for (int i; i < this.parameters.size(); i++){
+					res = res && 
+				}
+			}
+		}
+		return res;
 	}
 
 	/* (non-Javadoc)
