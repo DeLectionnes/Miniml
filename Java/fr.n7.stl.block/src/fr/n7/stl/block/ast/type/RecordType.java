@@ -46,6 +46,14 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		this.fields = new LinkedList<FieldDeclaration>();
 	}
 
+	//Added
+	/**
+	 * get the fields list
+	 */
+	public List<FieldDeclaration> getFields() {
+		return this.fields;
+	}
+
 	/**
 	 * Add a field to a record type.
 	 * @param _field The added field.
@@ -72,10 +80,10 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		boolean result = false;
 		if (_other instanceof RecordType) {
 			RecordType other = (RecordType) _other;
-			if (other != null && this.fields.size() == other.fields.size() && this.getName().equals(other.getName())){
+			if (other != null && this.fields.size() == other.getFields().size() && this.getName().equals(other.getName())){
 				result = true;
-				for (int i = 0; i < fields.size(); i++){
-					result = result && fields.get(i).getType().equalsTo(other.fields.get(i).getType());					
+				for (int i = 0; i < this.fields.size(); i++){
+					result = result && this.fields.get(i).getType().equalsTo(other.getFields().get(i).getType());					
 				}
 			}
 		}
@@ -90,10 +98,10 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		boolean result = false;
 		if (_other instanceof RecordType) {
 			RecordType other = (RecordType) _other;
-			if (other != null && this.fields.size() == other.fields.size()){
+			if (other != null && this.fields.size() == other.getFields().size()){
 				result = true;
-				for (int i = 0; i < fields.size(); i++){
-					result = result && fields.get(i).getType().compatibleWith(other.fields.get(i).getType());					
+				for (int i = 0; i < this.fields.size(); i++){
+					result = result && this.fields.get(i).getType().compatibleWith(other.getFields().get(i).getType());					
 				}
 			}
 		}
