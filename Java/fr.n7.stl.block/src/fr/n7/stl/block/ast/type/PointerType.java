@@ -29,7 +29,13 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException("Semantics equalsTo undefined in PointerType.");
+		boolean result = false;
+		if (_other instanceof PointerType) {
+			PointerType other = (PointerType) _other;
+			if (other != null) {
+				result = this.element.equalsTo(other.getPointedType());
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -37,8 +43,13 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException("Semantics compatibleWith undefined in PointerType.");
-	}
+		boolean result = false;
+		if (_other instanceof PointerType) {
+			PointerType other = (PointerType) _other;
+			if (other != null) {
+				result = this.element.compatibleWith(other.getPointedType());
+		}
+		return result;	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
