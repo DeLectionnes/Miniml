@@ -3,6 +3,7 @@
  */
 package fr.n7.stl.block.ast.expression;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.FunctionType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -69,7 +71,11 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionCall.");
+		boolean result = true;
+		for (Expression arg : this.arguments) {
+			result = result && arg.collectAndBackwardResolve(_scope);
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +83,12 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionCall.");
+		boolean result = true;
+		for (Expression arg : this.arguments) {
+			result = result && arg.fullResolve(_scope);
+		}
+		this.function = (FunctionDeclaration) _scope.get(name);
+		return result && (this.function != null);
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +96,14 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in FunctionCall.");
+		boolean result = true;
+		List<Type> type_args = new ArrayList<Type>();
+		FunctionType functype = (FunctionType) this.function.getType();
+		for (int i = 0; i < this.arguments.size();i++) {
+			type_args.add(arguments.get(i).getType());
+		}
+		FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
+		
 	}
 
 	/* (non-Javadoc)
