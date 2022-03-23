@@ -49,7 +49,7 @@ public class FunctionType implements Type {
 			FunctionType other = (FunctionType) _other;
 			if (other != null && other.getArgsType().size() == this.parameters.size()) {
 				res = this.result.equalsTo(other.getResultType());
-				for (int i; i < this.parameters.size(); i++){
+				for (int i =0; i < this.parameters.size(); i++){
 					res = res && this.parameters.get(i).equalsTo(other.getArgsType().get(i));
 				}
 			}
