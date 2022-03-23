@@ -67,7 +67,7 @@ public class FunctionType implements Type {
 			FunctionType other = (FunctionType) _other;
 			if (other != null && other.getArgsType().size() == this.parameters.size()) {
 				res = other.getResultType().compatibleWith(this.result);
-				for (int i; i < this.parameters.size(); i++){
+				for (int i =0; i < this.parameters.size(); i++){
 					res = res && this.parameters.get(i).compatibleWith(other.getArgsType().get(i));
 				}
 			}
