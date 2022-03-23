@@ -56,7 +56,7 @@ public class EnumerationType implements Type, Declaration {
 			if (this.labels.size() == other.label.size()){
 				result = true;
 				for (int i = 0; i < this.label.size(); i++){
-					result = result & (this.labels.get(i).equalsTo(other.labels.get(i)));
+					result = result & (this.labels.get(i).getType().equalsTo(other.labels.get(i).getType()));
 				}
 			}
 		}
@@ -74,7 +74,7 @@ public class EnumerationType implements Type, Declaration {
 			if (this.labels.size() == other.label.size()){
 				result = true;
 				for (int i = 0; i < this.label.size(); i++){
-					result = result & (this.labels.get(i).compatibleWith(other.labels.get(i)));
+					result = result & (this.labels.get(i).getType().compatibleWith(other.labels.get(i).getType()));
 				}
 			}
 		}
