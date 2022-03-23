@@ -19,7 +19,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
  * @author Marc Pantel
  *
  */
-public abstract class AbstractConversion<TargetType extends AssignableExpression> implements Expression {
+public abstract class AbstractConversion<TargetType extends Expression> implements Expression {
 
 	protected TargetType target;
 	protected Type type;
