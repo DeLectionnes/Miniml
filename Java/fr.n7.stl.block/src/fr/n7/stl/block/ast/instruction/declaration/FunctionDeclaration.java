@@ -36,6 +36,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 * List of AST nodes for the formal parameters of the function
 	 */
 	protected List<ParameterDeclaration> parameters;
+
+	/**
+	 * Scope
+	 */
+	protected HierarchicalScope<Declaration> tds;
 	
 	/**
 	 * @return the parameters
@@ -92,7 +97,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Type getType() {
-		return this.type;
+		List<Type> parametersType = new ArrayList<Type>();
+		for (ParameterDeclaration p : this.parameter){
+			parametersType.add(p.getType());
+		}
+		return new FunctionType(this.type, parametersType);
 	}
 	
 	/* (non-Javadoc)
@@ -100,7 +109,17 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionDeclaration.");
+		if (_scope.accepts(this)) {
+			_scope.register(this);
+			this.tds = new SymbolTable(_scope);
+			for (ParameterDeclaration p : this.parameter){
+				this.tds.register(p);
+			}
+			return this.body.collectAndBackwardResolve(this.tds);
+		} else {
+			System.out.println("Error : Multiple declarations.");
+			return false;
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -108,7 +127,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionDeclaration.");
+		return this.body.fullResolve(this.tds);
 	}
 
 	/* (non-Javadoc)
@@ -116,7 +135,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)
