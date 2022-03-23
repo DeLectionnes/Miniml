@@ -3,6 +3,7 @@
  */
 package fr.n7.stl.block.ast.instruction.declaration;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.FunctionType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -98,7 +101,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public Type getType() {
 		List<Type> parametersType = new ArrayList<Type>();
-		for (ParameterDeclaration p : this.parameter){
+		for (ParameterDeclaration p : this.parameters){
 			parametersType.add(p.getType());
 		}
 		return new FunctionType(this.type, parametersType);
@@ -112,7 +115,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 		if (_scope.accepts(this)) {
 			_scope.register(this);
 			this.tds = new SymbolTable(_scope);
-			for (ParameterDeclaration p : this.parameter){
+			for (ParameterDeclaration p : this.parameters){
 				this.tds.register(p);
 			}
 			return this.body.collectAndBackwardResolve(this.tds);
