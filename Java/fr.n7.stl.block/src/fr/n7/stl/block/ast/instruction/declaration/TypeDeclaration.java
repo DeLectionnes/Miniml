@@ -63,7 +63,7 @@ public class TypeDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		return true;
+		return this.type.resolve(_scope);
 	}
 
 	/**
