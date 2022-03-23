@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import fr.n7.stl.util.Logger;
+
 /**
  * Implementation of a hierarchical scope using maps.
  * @author Marc Pantel

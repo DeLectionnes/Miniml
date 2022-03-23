@@ -18,7 +18,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
+import fr.n7.stl.util.Logger;
 /**
  * Abstract Syntax Tree node for a function declaration.
  * @author Marc Pantel
@@ -120,7 +120,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 			}
 			return this.body.collectAndBackwardResolve(this.tds);
 		} else {
-			System.out.println("Error : Multiple declarations.");
+			Logger.error("Error : Multiple declarations.");
 			return false;
 		}
 	}

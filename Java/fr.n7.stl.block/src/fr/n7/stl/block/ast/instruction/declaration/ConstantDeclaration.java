@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a constant declaration instruction.
@@ -87,7 +88,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 			_scope.register(this);
 			return this.value.collectAndBackwardResolve(_scope);
 		} else {
-			System.out.println("Error : Multiple declarations.");
+			Logger.error("Error : Multiple declarations.");
 			return false;
 		}
 	}

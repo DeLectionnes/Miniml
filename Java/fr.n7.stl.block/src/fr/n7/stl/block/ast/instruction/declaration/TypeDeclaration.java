@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a type declaration.
@@ -53,7 +54,7 @@ public class TypeDeclaration implements Declaration, Instruction {
 			_scope.register(this);
 			return true;
 		} else {
-			System.out.println("Error : Multiple declarations.");
+			Logger.error("Error : Multiple declarations.");
 			return false;
 		}
 	}

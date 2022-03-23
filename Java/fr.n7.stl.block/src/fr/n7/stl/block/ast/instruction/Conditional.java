@@ -13,6 +13,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 import fr.n7.stl.block.ast.type.*;
 
 /**
@@ -84,7 +85,7 @@ public class Conditional implements Instruction {
 		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
 			return then_result && else_result;
 		} else {
-			System.out.println("Error : Type.");
+			Logger.error("Error : Type.");
 			return false;
 		}
 	}

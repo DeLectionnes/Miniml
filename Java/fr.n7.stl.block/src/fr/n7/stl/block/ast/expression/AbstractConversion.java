@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -85,6 +86,7 @@ public abstract class AbstractConversion<TargetType extends Expression> implemen
 				type = (Type) _scope.get(this.name);
 				return result;
 			} else {
+				Logger.error(this.name + " n'est pas un type.");
 				return false;
 			}
 		}
