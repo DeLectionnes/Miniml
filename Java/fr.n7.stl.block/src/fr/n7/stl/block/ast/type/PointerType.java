@@ -34,6 +34,7 @@ public class PointerType implements Type {
 			PointerType other = (PointerType) _other;
 			if (other != null) {
 				result = this.element.equalsTo(other.getPointedType());
+			}
 		}
 		return result;
 	}
@@ -48,8 +49,10 @@ public class PointerType implements Type {
 			PointerType other = (PointerType) _other;
 			if (other != null) {
 				result = this.element.compatibleWith(other.getPointedType());
+			}
 		}
-		return result;	}
+		return result;	
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
