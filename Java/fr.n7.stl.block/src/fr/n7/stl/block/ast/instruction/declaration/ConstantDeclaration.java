@@ -85,7 +85,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
 		if (_scope.accepts(this)) {
 			_scope.register(this);
-			return true;
+			return this.value.collectAndBackwardResolve(_scope);
 		} else {
 			System.out.println("Error : Multiple declarations.");
 			return false;
