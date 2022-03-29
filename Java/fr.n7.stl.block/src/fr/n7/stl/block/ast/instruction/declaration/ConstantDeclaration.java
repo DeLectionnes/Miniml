@@ -108,7 +108,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	public boolean checkType() {
 		boolean result = this.value.getType().compatibleWith(this.type);
 		if (! result) {
-			System.out.println("Error : Type.");
+			Logger.error("Error : Type.");
 		}
 		return result;
 	}

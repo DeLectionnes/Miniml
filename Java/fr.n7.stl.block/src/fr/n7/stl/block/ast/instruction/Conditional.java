@@ -54,7 +54,7 @@ public class Conditional implements Instruction {
 	public boolean collectAndBackwardResolve(HierarchicalScope<Declaration> _scope) {
 		boolean result_condition = this.condition.collectAndBackwardResolve(_scope);
 		boolean result_then = this.thenBranch.collectAndBackwardResolve(_scope);
-		if (this.elseBranch == null) {
+		if (this.elseBranch != null) {
 			boolean result_else = this.elseBranch.collectAndBackwardResolve(_scope);
 			return result_condition && result_else && result_then;
 		}
@@ -68,7 +68,7 @@ public class Conditional implements Instruction {
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
 		boolean result_condition = this.condition.fullResolve(_scope);
 		boolean result_then = this.thenBranch.fullResolve(_scope);
-		if (this.elseBranch == null) {
+		if (this.elseBranch != null) {
 			boolean result_else = this.elseBranch.fullResolve(_scope);
 			return result_condition && result_else && result_then;
 		}
@@ -80,14 +80,21 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
+		boolean condition_result = this.condition.getType().compatibleWith(AtomicType.BooleanType);
 		boolean then_result = this.thenBranch.checkType();
-		boolean else_result = this.elseBranch.checkType();
-		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
-			return then_result && else_result;
-		} else {
-			Logger.error("Error : Type.");
+		if (this.elseBranch != null) {
+			boolean else_result = this.elseBranch.checkType();
+			if (!(condition_result && then_result && else_result)) {
+				Logger.error("Error : Type");
+				return false;
+			}
+			return true;
+		}
+		if (!(condition_result && then_result)) {
+			Logger.error("Error : Type");
 			return false;
 		}
+		return true;
 	}
 
 	/* (non-Javadoc)

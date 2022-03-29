@@ -52,7 +52,7 @@ public abstract class AbstractConversion<TargetType extends Expression> implemen
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getType()
-	 */;
+	 */
 	@Override
 	public Type getType() {
 		if (this.type != null) {

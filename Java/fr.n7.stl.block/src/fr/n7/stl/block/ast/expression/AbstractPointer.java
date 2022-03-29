@@ -4,6 +4,9 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.util.Logger;
+import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.PointerType;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -55,7 +58,13 @@ public abstract class AbstractPointer implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		return this.pointer.getType();
+		if (this.pointer.getType() instanceof PointerType) {
+			return ((PointerType)this.pointer.getType()).getPointedType();
+		} else {
+			Logger.error("Error : Type");
+			return AtomicType.ErrorType;
+		}
+		
 	}
 
 }

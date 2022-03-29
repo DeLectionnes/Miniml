@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an array type.
@@ -73,7 +74,10 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
-		return this.value.getType().compatibleWith(this.assignable.getType());
+		if (!this.assignable.getType().compatibleWith(this.value.getType())) {
+			Logger.error("Error : Type");
+		}
+		return this.assignable.getType().compatibleWith(this.value.getType());
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +89,7 @@ public class Assignment implements Instruction, Expression {
 	}
 
 	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 * @see fr.n7.stl.block.ast.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)value
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
