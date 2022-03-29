@@ -6,6 +6,7 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
+import fr.n7.stl.block.ast.instruction.declaration.TypeDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -82,9 +83,10 @@ public abstract class AbstractConversion<TargetType extends Expression> implemen
 		boolean result = this.target.fullResolve(_scope);
 		if (type==null){
 			Declaration decltype = _scope.get(this.name);
-			if (decltype instanceof Type) {
-				type = (Type) _scope.get(this.name);
+			if (decltype instanceof TypeDeclaration) {
+				type = ((TypeDeclaration) _scope.get(this.name)).getType();
 				return result;
+
 			} else {
 				Logger.error(this.name + " n'est pas un type.");
 				return false;

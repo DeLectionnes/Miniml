@@ -118,7 +118,7 @@ public class NamedType implements Type {
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		if (this.declaration == null) {
-			if (_scope.contains(this.name)) {
+			if (_scope.knows(this.name)) {
 				try {
 					TypeDeclaration _declaration = (TypeDeclaration) _scope.get(this.name);
 					this.declaration = _declaration;
