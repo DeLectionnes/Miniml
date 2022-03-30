@@ -134,7 +134,9 @@ public class BinaryExpression implements Expression {
 					return AtomicType.BooleanType;
 				}
 			}
-			default : return AtomicType.ErrorType;
+			default : 
+			Logger.error("Error : Type");
+			return AtomicType.ErrorType;
 		}
 	}
 

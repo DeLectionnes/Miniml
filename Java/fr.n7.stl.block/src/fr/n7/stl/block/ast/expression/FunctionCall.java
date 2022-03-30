@@ -16,6 +16,7 @@ import fr.n7.stl.block.ast.type.FunctionType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a function call expression.
@@ -102,18 +103,22 @@ public class FunctionCall implements Expression {
 	public Type getType() {
 		List<Type> type_args = new ArrayList<Type>();
 		Type type = this.function.getType();
-		if (type instanceof FunctionCall) {
+		if (type instanceof FunctionType) {
 			FunctionType functype = (FunctionType) this.function.getType();
 			for (int i = 0; i < this.arguments.size();i++) {
 				type_args.add(arguments.get(i).getType());
 			}
 			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
+			System.out.println(call_type);
+			System.out.println(functype);
 			if (call_type.compatibleWith(functype)) {
 				return functype.getResultType();
 			} else {
+				Logger.error("Error : Type");
 				return AtomicType.ErrorType;
 			}
 		} else  {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

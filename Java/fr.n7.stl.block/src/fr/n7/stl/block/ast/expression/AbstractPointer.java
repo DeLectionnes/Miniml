@@ -6,6 +6,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.util.Logger;
 import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.PointerType;
 
 /**
@@ -60,6 +61,14 @@ public abstract class AbstractPointer implements Expression {
 	public Type getType() {
 		if (this.pointer.getType() instanceof PointerType) {
 			return ((PointerType)this.pointer.getType()).getPointedType();
+		} else if (this.pointer.getType() instanceof NamedType) {
+			if (((NamedType)this.pointer.getType()).getType() instanceof PointerType) {
+				System.out.println(((PointerType)((NamedType)this.pointer.getType()).getType()).getPointedType());
+				return ((PointerType)((NamedType)this.pointer.getType()).getType()).getPointedType();
+			} else {
+				Logger.error("Error : Type");
+				return AtomicType.ErrorType;
+			}
 		} else {
 			Logger.error("Error : Type");
 			return AtomicType.ErrorType;

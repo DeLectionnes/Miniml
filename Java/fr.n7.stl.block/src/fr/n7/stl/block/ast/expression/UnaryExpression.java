@@ -83,7 +83,9 @@ public class UnaryExpression implements Expression {
 						return AtomicType.ErrorType;
 					}
 				}
-				default : return AtomicType.ErrorType;
+				default : 
+				Logger.error("Error : Type");
+				return AtomicType.ErrorType;
 			}
 		}
 	}

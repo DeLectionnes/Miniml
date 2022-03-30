@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 import fr.n7.stl.block.ast.type.*;
 
 
@@ -64,6 +65,7 @@ public class First implements Expression {
 		if (paramType instanceof CoupleType){
 			return ((CoupleType) paramType).getFirst();
 		}else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

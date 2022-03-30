@@ -69,6 +69,7 @@ public class NamedType implements Type {
 			if (this.declaration.getName().equals(((NamedType) _other).declaration.getName())) {
 				return this;
 			} else {
+				Logger.error("Error : Type");
 				return AtomicType.ErrorType;
 			}
 		} else {

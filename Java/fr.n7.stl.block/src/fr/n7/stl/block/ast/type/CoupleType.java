@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.type;
 
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a couple type.
@@ -62,6 +63,7 @@ public class CoupleType implements Type {
 					this.first.merge(((CoupleType) _other).first),
 					this.second.merge(((CoupleType) _other).second));
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

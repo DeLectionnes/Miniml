@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -126,7 +127,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		System.out.println(this.value.getType());
+		if (this.type instanceof NamedType) {
+			this.type = ((NamedType) this.type).getType();
+		}
 		boolean result = this.value.getType().compatibleWith(this.type);
 		if (! result) {
 			Logger.error("Error : Type.");

@@ -47,17 +47,16 @@ test {
 		float y = number;
         const float threehalfs = 1.5;
         Integer i  = * ( Intpoint ) &y;                 
-        i  = 1597463007 - ( (*i)/2 );               
-        y  = * ( Floatpoint ) &i;
+        i  = 1597463007 - ( i+2 ); 
         y  = y * ( threehalfs - ( x2 * y * y ) );   
 
         return y;
     }
 
-	Point pyt = {tab[3], tab[5]};
+	Point pyt = {tab[3], tab[5], 5.0};
 
 	void updateLength(Point p) {
-		p.length = 1/Q_rsqrt(p.x*p.x+p.y*p.y);
+		
 	}
 
 	void x = updateLength(pyt);

@@ -9,6 +9,7 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a sequence type.
@@ -135,9 +136,11 @@ public class SequenceType implements Type {
 				}
 				return _result;
 			} else {
+				Logger.error("Error : Type");
 				return AtomicType.ErrorType;
 			}
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

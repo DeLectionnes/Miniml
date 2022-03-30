@@ -10,6 +10,7 @@ import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a conditional expression.
@@ -89,6 +90,7 @@ public class ConditionalExpression implements Expression {
 		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
 			return  this.condition.getType();
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}	}
 

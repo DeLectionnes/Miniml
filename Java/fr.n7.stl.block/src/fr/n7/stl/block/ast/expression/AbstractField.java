@@ -6,9 +6,11 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -64,15 +66,21 @@ public abstract class AbstractField implements Expression {
 	public Type getType() {
 		Type type =  this.record.getType();
 		RecordType recordType;
+		if (type instanceof NamedType) {
+			type = ((NamedType) type).getType();
+		}
+		System.out.println(type);
 		if (type instanceof RecordType) {
 			recordType = (RecordType) type;
 			if (recordType.contains(this.name)) {
 				this.field = recordType.get(this.name);
 				return type;
 			}	else {
+				Logger.error("Error : Type");
 				return AtomicType.ErrorType;
 			}
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

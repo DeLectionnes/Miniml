@@ -59,9 +59,11 @@ public abstract class AbstractConversion<TargetType extends Expression> implemen
 			if (this.type.compatibleWith(this.target.getType())) {
 				return this.type;
 			} else {
+				Logger.error("Error : Type");
 				return AtomicType.ErrorType;
 			}
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

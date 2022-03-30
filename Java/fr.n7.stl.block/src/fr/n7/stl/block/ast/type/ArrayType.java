@@ -6,6 +6,7 @@ package fr.n7.stl.block.ast.type;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 /**
  * @author Marc Pantel
@@ -51,6 +52,7 @@ public class ArrayType implements Type {
 		if (_other instanceof ArrayType) {
 			return new ArrayType(this.element.merge(((ArrayType)_other).element));
 		} else {
+			Logger.error("Error : Type");
 			return AtomicType.ErrorType;
 		}
 	}

@@ -114,10 +114,15 @@ Program ::= UL_Identificateur:nom Bloc:bloc
 				System.out.println( "Block named : " + nom );
 				System.out.println( bloc ); 
 				SymbolTable tds = new SymbolTable();
-				if (bloc.collect(tds)) {
+				if (bloc.collectAndBackwardResolve(tds)) {
 					System.out.println("Collect succeeded : " + tds);
-					if (bloc.resolve(tds)) {
+					if (bloc.fullResolve(tds)) {
 						System.out.println("Resolve succeeded.");
+						if (bloc.checkType()) {
+							System.out.println("CheckType succeeded.");
+						} else {
+							System.out.println("CheckType failed.");
+						}
 					} else {
 						System.out.println("Resolve failed." + tds);
 					}
