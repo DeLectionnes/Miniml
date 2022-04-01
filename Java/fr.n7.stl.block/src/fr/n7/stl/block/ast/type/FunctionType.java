@@ -62,8 +62,8 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		if (this.type instanceof NamedType) {
-			this.type = ((NamedType) this.type).getType();
+		if (_other instanceof NamedType) {
+			_other = ((NamedType) _other).getType();
 		}
 		boolean res = false;
 		if (_other instanceof FunctionType){
