@@ -30,6 +30,8 @@ public class Block {
 	 */
 	protected List<Instruction> instructions;
 	protected HierarchicalScope<Declaration> tds;
+
+	private int size;
 	/**
 	 * Constructor for a block.
 	 */
@@ -102,7 +104,13 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in Block.");
+		int dep = _offset;
+		this.size = 0;
+		for (Instruction i : this.instructions) {
+			dep += i.allocateMemory(_register, dep);
+		}
+		this.size = dep - _offset;
+		return 0;
 	}
 
 	/**
