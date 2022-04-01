@@ -110,7 +110,6 @@ public class Block {
 			dep += i.allocateMemory(_register, dep);
 		}
 		this.size = dep - _offset;
-		return 0;
 	}
 
 	/**

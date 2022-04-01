@@ -85,7 +85,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Assignment.");
+		return this.assignable.getType().length();
 	}
 
 	/* (non-Javadoc)
