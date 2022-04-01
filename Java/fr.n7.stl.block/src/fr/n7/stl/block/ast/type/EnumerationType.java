@@ -68,6 +68,9 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		if (this.type instanceof NamedType) {
+			this.type = ((NamedType) this.type).getType();
+		}
 		boolean result = false;
 		if(_other instanceof EnumerationType){
 			EnumerationType other =  (EnumerationType) _other;

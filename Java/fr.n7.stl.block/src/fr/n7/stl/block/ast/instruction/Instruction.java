@@ -41,6 +41,8 @@ public interface Instruction {
 	 * @return Synthesized True if the instruction is well typed, False if not.
 	 */
 	public boolean checkType();
+
+	//TODO public _ returnsTo(){}
 	
 	/**
 	 * Inherited Semantics attribute to allocate memory for the variables declared in the instruction.

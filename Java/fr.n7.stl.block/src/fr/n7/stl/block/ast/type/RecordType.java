@@ -95,6 +95,9 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		if (this.type instanceof NamedType) {
+			this.type = ((NamedType) this.type).getType();
+		}
 		boolean result = false;
 		if (_other instanceof RecordType) {
 			RecordType other = (RecordType) _other;
