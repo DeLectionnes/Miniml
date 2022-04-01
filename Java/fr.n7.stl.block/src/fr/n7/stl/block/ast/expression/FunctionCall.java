@@ -109,8 +109,6 @@ public class FunctionCall implements Expression {
 				type_args.add(arguments.get(i).getType());
 			}
 			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
-			System.out.println(call_type);
-			System.out.println(functype);
 			if (call_type.compatibleWith(functype)) {
 				return functype.getResultType();
 			} else {
