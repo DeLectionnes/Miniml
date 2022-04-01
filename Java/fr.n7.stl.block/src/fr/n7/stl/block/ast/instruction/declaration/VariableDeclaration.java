@@ -142,7 +142,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in VariableDeclaration.");
+		this.register = _register;
+		this.offset = _offset;
+		return _offset + this.type.length();
 	}
 
 	/* (non-Javadoc)
