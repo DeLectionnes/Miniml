@@ -99,7 +99,10 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Assignment.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.value.getCode(_factory));
+		_result.append(this.assignement.getCode(_factory));
+		return _result;
 	}
 
 }
