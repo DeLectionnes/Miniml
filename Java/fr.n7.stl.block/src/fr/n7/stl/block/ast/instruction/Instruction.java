@@ -3,6 +3,8 @@
  */
 package fr.n7.stl.block.ast.instruction;
 
+import fr.n7.stl.block.ast.type.Type;
+
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.tam.ast.Fragment;
@@ -42,7 +44,7 @@ public interface Instruction {
 	 */
 	public boolean checkType();
 
-	//TODO public _ returnsTo(){}
+	public Type returnsTo();
 	
 	/**
 	 * Inherited Semantics attribute to allocate memory for the variables declared in the instruction.

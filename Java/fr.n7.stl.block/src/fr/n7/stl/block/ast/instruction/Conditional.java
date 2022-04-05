@@ -97,6 +97,24 @@ public class Conditional implements Instruction {
 		return true;
 	}
 
+	@Override
+	public Type returnsTo(){
+		Type return_then = thenBranch.returnsTo();
+		if (elseBranch == null) {
+			return return_then;
+		} else {
+			Type return_else = thenBranch.returnsTo();
+			if (return_else == AtomicType.VoidType || return_then == AtomicType.VoidType) {
+				return AtomicType.VoidType;
+			} else if (return_else == return_then) {
+				return return_else;
+			} else {
+				Logger.error("Return types invompatible");
+				return AtomicType.ErrorType;
+			}
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
 	 */

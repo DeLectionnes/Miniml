@@ -6,6 +6,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.ArrayType;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -68,11 +69,11 @@ public abstract class AbstractArray implements Expression {
 			if(this.array.getType() instanceof ArrayType) {
 				return ((ArrayType)this.array.getType()).getType();
 			}  else {
-				System.out.println("Error : Type.");
+				Logger.error("Error : Type.");
 				return AtomicType.ErrorType;
 			}	
 		} else {
-			System.out.println("Error : Type.");
+			Logger.error("Error : Type.");
 			return AtomicType.ErrorType;
 		}
 		

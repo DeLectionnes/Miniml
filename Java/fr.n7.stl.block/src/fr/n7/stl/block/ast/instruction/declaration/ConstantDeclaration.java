@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -113,12 +114,17 @@ public class ConstantDeclaration implements Instruction, Declaration {
 		return result;
 	}
 
+	@Override
+	public Type returnsTo(){
+		return AtomicType.VoidType;
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		return _offset.type.length();
+		return 0;
 	}
 
 	/* (non-Javadoc)

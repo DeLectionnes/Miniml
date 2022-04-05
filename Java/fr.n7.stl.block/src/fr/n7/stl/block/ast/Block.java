@@ -9,9 +9,12 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Represents a Block node in the Abstract Syntax Tree node for the Bloc language.
@@ -96,6 +99,19 @@ public class Block {
 	}
 
 	//TODO public _ returnsTo(){}
+	public Type returnsTo() {
+		Type typeReturn = AtomicType.VoidType;
+		
+		for (Instruction i : this.instructions) {
+			Type result = i.returnsTo();
+			if (typeReturn.equalsTo(AtomicType.VoidType)){
+				typeReturn = result;
+			} else if (!(result.equalsTo(typeReturn) || result.equalsTo(AtomicType.VoidType))) {
+				Logger.error("Plusieurs type retournés");
+			}
+		}
+		return typeReturn;
+	}
 
 	/**
 	 * Inherited Semantics attribute to allocate memory for the variables declared in the instruction.

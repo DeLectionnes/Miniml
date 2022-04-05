@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
@@ -135,6 +136,11 @@ public class VariableDeclaration implements Declaration, Instruction {
 			Logger.error("Error : Type.");
 		}
 		return result;
+	}
+
+	@Override
+	public Type returnsTo(){
+		return AtomicType.VoidType;
 	}
 
 	/* (non-Javadoc)

@@ -83,35 +83,32 @@ public class BinaryExpression implements Expression {
 	public Type getType() {
 		Type _left = this.left.getType();
 		Type _right = this.right.getType();
-		Type resultType = _left.merge(_right);
-		if (resultType.equals(AtomicType.ErrorType)) {
-			Logger.warning("Type error in binary expression : Merged parameters " + _left + " " + _right);
-		}
 		switch (this.operator) {
 			case Add: {
-				if (resultType.compatibleWith(AtomicType.FloatingType) 
-						|| resultType.compatibleWith(AtomicType.StringType))  {
-					return resultType;
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.FloatingType;
+				} else if (_left.compatibleWith(AtomicType.StringType) && _right.compatibleWith(AtomicType.StringType)) {
+					return AtomicType.StringType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameter " + resultType);
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
 			case Substract:
 			case Multiply:
 			case Divide: {
-				if (resultType.compatibleWith(AtomicType.FloatingType)) {
-					return resultType;
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.FloatingType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameter " + resultType);
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
 			case Modulo: {
-				if (resultType.compatibleWith(AtomicType.IntegerType)) {
-					return resultType;
+				if (_left.compatibleWith(AtomicType.IntegerType) && _right.compatibleWith(AtomicType.IntegerType))  {
+					return AtomicType.IntegerType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameter " + resultType);
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -119,17 +116,17 @@ public class BinaryExpression implements Expression {
 			case Greater:
 			case LesserOrEqual:
 			case GreaterOrEqual: {
-				if (resultType.compatibleWith(AtomicType.FloatingType)) {
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameter " + resultType);
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}				
 			}
 			case Equals:
 			case Different: {
-				if (resultType.equals(AtomicType.ErrorType)) {
-					return resultType;
+				if (_left.compatibleWith(AtomicType.ErrorType) || _right.compatibleWith(AtomicType.ErrorType)) {
+					return AtomicType.ErrorType;
 				} else {
 					return AtomicType.BooleanType;
 				}

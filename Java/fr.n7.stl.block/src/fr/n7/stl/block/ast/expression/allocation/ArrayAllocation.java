@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * @author Marc Pantel
@@ -59,7 +60,7 @@ public class ArrayAllocation implements Expression {
 		if (this.size.getType().compatibleWith(AtomicType.IntegerType)) {
 			return new ArrayType(this.element);
 		} else {
-			System.out.println("Error : Type.");
+			Logger.error("Error : Type.");
 			return AtomicType.ErrorType;
 		}
 	}

@@ -2,6 +2,7 @@ test {
 	int i = 1;
 	const int j = 2;
 	< int, int> p = < 3, 4>;
+	<int, <int, int>> q = <5, p>;
 	int k = fst p;
 	if ( i < 5 ) {
 		int j = 5;
@@ -56,7 +57,7 @@ test {
 	Point pyt = {tab[3], tab[5], 5.0};
 
 	void updateLength(Point p) {
-		
+		p.length = p.x + p.y;
 	}
 
 	void x = updateLength(pyt);

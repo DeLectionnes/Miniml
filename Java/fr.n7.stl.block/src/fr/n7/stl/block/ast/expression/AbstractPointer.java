@@ -63,7 +63,6 @@ public abstract class AbstractPointer implements Expression {
 			return ((PointerType)this.pointer.getType()).getPointedType();
 		} else if (this.pointer.getType() instanceof NamedType) {
 			if (((NamedType)this.pointer.getType()).getType() instanceof PointerType) {
-				System.out.println(((PointerType)((NamedType)this.pointer.getType()).getType()).getPointedType());
 				return ((PointerType)((NamedType)this.pointer.getType()).getType()).getPointedType();
 			} else {
 				Logger.error("Error : Type");

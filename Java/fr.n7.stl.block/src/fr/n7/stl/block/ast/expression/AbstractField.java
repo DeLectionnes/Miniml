@@ -69,12 +69,11 @@ public abstract class AbstractField implements Expression {
 		if (type instanceof NamedType) {
 			type = ((NamedType) type).getType();
 		}
-		System.out.println(type);
 		if (type instanceof RecordType) {
 			recordType = (RecordType) type;
 			if (recordType.contains(this.name)) {
 				this.field = recordType.get(this.name);
-				return type;
+				return this.field.getType();
 			}	else {
 				Logger.error("Error : Type");
 				return AtomicType.ErrorType;

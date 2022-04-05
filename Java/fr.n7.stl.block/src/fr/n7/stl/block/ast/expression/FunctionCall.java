@@ -109,7 +109,7 @@ public class FunctionCall implements Expression {
 				type_args.add(arguments.get(i).getType());
 			}
 			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
-			if (call_type.compatibleWith(functype)) {
+			if (functype.compatibleWith(call_type)) {
 				return functype.getResultType();
 			} else {
 				Logger.error("Error : Type");

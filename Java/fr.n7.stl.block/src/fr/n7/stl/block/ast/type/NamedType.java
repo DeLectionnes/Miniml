@@ -52,6 +52,7 @@ public class NamedType implements Type {
 	@Override
 	public boolean compatibleWith(Type _other) {
 		if (_other instanceof NamedType) {
+			
 			return (this.declaration.getName().equals(((NamedType) _other).declaration.getName()));
 		} else {
 			return (this.declaration.getType().compatibleWith(_other));

@@ -13,6 +13,7 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.FunctionType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
@@ -100,6 +101,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Type getType() {
+		if (!this.body.returnsTo().compatibleWith(this.type)) {
+			Logger.error("Return type incorrect");
+			return AtomicType.ErrorType;
+		}
+
 		List<Type> parametersType = new ArrayList<Type>();
 		for (ParameterDeclaration p : this.parameters){
 			parametersType.add(p.getType());
@@ -130,7 +136,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean fullResolve(HierarchicalScope<Declaration> _scope) {
-		return this.body.fullResolve(this.tds);
+		boolean b = true;
+		for (ParameterDeclaration p : this.parameters) {
+			b = b && p.getType().resolve(_scope);
+		}
+		return this.body.fullResolve(this.tds) && b;
 	}
 
 	/* (non-Javadoc)
@@ -139,6 +149,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public boolean checkType() {
 		return this.body.checkType();
+	}
+
+	@Override
+	public Type returnsTo(){
+		return AtomicType.VoidType;
 	}
 
 	/* (non-Javadoc)
