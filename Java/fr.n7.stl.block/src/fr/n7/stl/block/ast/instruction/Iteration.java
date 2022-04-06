@@ -92,7 +92,10 @@ public class Iteration implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Iteration.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.condition.getCode(_factory));
+		_result.append(this.body.getCode(_factory));
+		return _result;
 	}
 
 }

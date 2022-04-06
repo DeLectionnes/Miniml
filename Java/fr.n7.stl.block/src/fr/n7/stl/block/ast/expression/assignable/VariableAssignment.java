@@ -21,7 +21,7 @@ import fr.n7.stl.util.Logger;
  */
 public class VariableAssignment extends AbstractIdentifier implements AssignableExpression {
 	
-	protected Declaration declaration;
+	protected VariableDeclaration declaration;
 
 	/**
 	 * Creates a variable assignment expression Abstract Syntax Tree node.
