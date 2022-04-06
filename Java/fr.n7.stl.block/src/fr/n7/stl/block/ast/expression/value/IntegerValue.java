@@ -27,6 +27,10 @@ public class IntegerValue implements Value {
 		value = Integer.parseInt(_text);
 	}
 
+	public int getValue() {
+		return this.value;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

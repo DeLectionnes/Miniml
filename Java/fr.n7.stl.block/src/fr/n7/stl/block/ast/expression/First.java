@@ -78,7 +78,7 @@ public class First implements Expression {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.target.getCode(_factory));
 		CoupleType c = (CoupleType) this.target.getType();
-		_result.add(_factory.createPop(0, c.getFirst().length()));
+		_result.add(_factory.createPop(0, c.getSecond().length()));
 		return _result;
 	}
 
