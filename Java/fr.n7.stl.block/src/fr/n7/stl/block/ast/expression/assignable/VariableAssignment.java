@@ -79,9 +79,9 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 		if (this.declaration instanceof VariableDeclaration) {
 			VariableDeclaration d = (VariableDeclaration) this.declaration;
 			_result.add(_factory.createStore(
-					this.d.getRegister(), 
-					this.d.getOffset(),
-					this.d.getType().length()));
+					d.getRegister(), 
+					d.getOffset(),
+					d.getType().length()));
 		} else if(this.declaration instanceof ParameterDeclaration) {
 			Logger.error("ParameterDeclaration not implemented yet.");
 		}

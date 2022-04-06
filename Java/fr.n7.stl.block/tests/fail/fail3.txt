@@ -1,0 +1,5 @@
+//ArrayAllocation ligne 63
+fail{
+    String f = "I love STDL";
+    int x[] = new int[f];
+}

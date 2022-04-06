@@ -75,11 +75,11 @@ public abstract class AbstractField implements Expression {
 				this.field = recordType.get(this.name);
 				return this.field.getType();
 			}	else {
-				Logger.error("Error : Type");
+				Logger.error("Error : Type not known");
 				return AtomicType.ErrorType;
 			}
 		} else {
-			Logger.error("Error : Type");
+			Logger.error("Error : Type not a record type");
 			return AtomicType.ErrorType;
 		}
 	}

@@ -72,7 +72,7 @@ public class ArrayAllocation implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		
-		_result.add(_factory.createPush(this.element.lenght()));
+		_result.add(_factory.createPush(this.element.length()));
 		return _result;
 	}
 

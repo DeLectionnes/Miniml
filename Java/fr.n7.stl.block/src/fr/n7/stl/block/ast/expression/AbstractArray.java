@@ -69,11 +69,11 @@ public abstract class AbstractArray implements Expression {
 			if(this.array.getType() instanceof ArrayType) {
 				return ((ArrayType)this.array.getType()).getType();
 			}  else {
-				Logger.error("Error : Type.");
+				Logger.error("Error : Type of array.");
 				return AtomicType.ErrorType;
 			}	
 		} else {
-			Logger.error("Error : Type.");
+			Logger.error("Error : Type of index.");
 			return AtomicType.ErrorType;
 		}
 		
