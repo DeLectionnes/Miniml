@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.expression.allocation;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.block.ast.expression.BinaryOperator;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -13,6 +14,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
+import fr.n7.stl.block.ast.expression.value.IntegerValue;
 
 /**
  * @author Marc Pantel
@@ -71,8 +73,11 @@ public class ArrayAllocation implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-		
-		_result.add(_factory.createPush(this.element.length()));
+		IntegerValue s = (IntegerValue) this.size;
+		_result.add(_factory.createLoadL(s.getValue()));
+		_result.add(_factory.createLoadL(this.element.length()));
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
+		//MALLOC
 		return _result;
 	}
 

@@ -29,6 +29,9 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+		Fragment _result = _factory.createFragment();
+
+		return _result;
 		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
 	}
 
