@@ -21,7 +21,7 @@ import fr.n7.stl.util.Logger;
  */
 public class VariableAssignment extends AbstractIdentifier implements AssignableExpression {
 	
-	protected VariableDeclaration declaration;
+	protected Declaration declaration;
 
 	/**
 	 * Creates a variable assignment expression Abstract Syntax Tree node.
@@ -76,10 +76,15 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-		_result.add(_factory.createStore(
-				this.declaration.getRegister(), 
-				this.declaration.getOffset(),
-				this.declaration.getType().length()))
+		if (this.declaration instanceof VariableDeclaration) {
+			VariableDeclaration d = (VariableDeclaration) this.declaration;
+			_result.add(_factory.createStore(
+					this.d.getRegister(), 
+					this.d.getOffset(),
+					this.d.getType().length()));
+		} else if(this.declaration instanceof ParameterDeclaration) {
+			Logger.error("ParameterDeclaration not implemented yet.");
+		}
 		return _result;
 	}
 

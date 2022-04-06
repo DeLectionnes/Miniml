@@ -99,7 +99,11 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConditionalExpression.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.condition.getCode(_factory));
+		_result.append(this.thenExpression.getCode(_factory));
+		_result.append(this.elseExpression.getCode(_factory));
+		return _result;
 	}
 
 }

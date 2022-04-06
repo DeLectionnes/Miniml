@@ -135,7 +135,11 @@ public class Block {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics generateCode is undefined in Block.");
+		Fragment _result = _factory.createFragment();
+		for (Instruction _instruction : this.instructions) {
+			_result.append(_instruction.getCode(_factory));
+		}
+		return _result;
 	}
 
 }
