@@ -101,8 +101,12 @@ public class ConditionalExpression implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.condition.getCode(_factory));
+		_result.append(_factory.createJumpIf("else", 0));
 		_result.append(this.thenExpression.getCode(_factory));
+		_result.append(_factory.createJump("end"));
+		_result.createSuffix("else");
 		_result.append(this.elseExpression.getCode(_factory));
+		_result.createSuffix("end");
 		return _result;
 	}
 
