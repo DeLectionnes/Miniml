@@ -9,13 +9,15 @@ import java.util.List;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.Scope;
+import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.block.ast.type.declaration.LabelDeclaration;
 
 /**
  * @author Marc Pantel
  *
  */
-public class EnumerationType implements Type, Declaration {
+public class EnumerationType implements Type, Declaration{
 	
 	private String name;
 	
@@ -44,6 +46,7 @@ public class EnumerationType implements Type, Declaration {
 		}
 		return _result + " }";
 	}
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#equalsTo(fr.n7.stl.block.ast.type.Type)
@@ -119,6 +122,15 @@ public class EnumerationType implements Type, Declaration {
 	@Override
 	public Type getType() {
 		return this;
+	}
+
+	public boolean contains(String _name) {
+		boolean _result = false;
+		Iterator<LabelDeclaration> _iter = this.labels.iterator();
+		while (_iter.hasNext() && (! _result)) {
+			_result = _result || _iter.next().getName().contentEquals(_name);
+		}
+		return _result;
 	}
 
 }

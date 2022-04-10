@@ -8,9 +8,11 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractAccess;
 import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
+import fr.n7.stl.block.ast.instruction.declaration.TypeDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.EnumerationType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -83,9 +85,16 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 						if (_declaration instanceof ParameterDeclaration) {
 							this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
 							return true;
+						} else {
+							if(_declaration instanceof TypeDeclaration && ((TypeDeclaration) _declaration).getType() instanceof EnumerationType) {
+								//Si c'est un type, alors il s'agit d'un enum dont on veut récupérer une valeur
+								this.expression = new EnumAccess((EnumerationType)((TypeDeclaration) _declaration).getType());
+								return true;
+							} else {
+								Logger.error("The declaration for " + this.name + " is of the wrong kind.");
+								return false;
+							}
 						}
-						Logger.error("The declaration for " + this.name + " is of the wrong kind.");
-						return false;
 					}
 				}
 			} else {

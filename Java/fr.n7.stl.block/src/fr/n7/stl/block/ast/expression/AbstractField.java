@@ -6,6 +6,7 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.EnumerationType;
 import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.block.ast.type.Type;
@@ -66,6 +67,7 @@ public abstract class AbstractField implements Expression {
 	public Type getType() {
 		Type type =  this.record.getType();
 		RecordType recordType;
+		EnumerationType enumType;
 		if (type instanceof NamedType) {
 			type = ((NamedType) type).getType();
 		}
@@ -75,11 +77,19 @@ public abstract class AbstractField implements Expression {
 				this.field = recordType.get(this.name);
 				return this.field.getType();
 			}	else {
-				Logger.error("Error : Type not known");
+				Logger.error("Error : Record field not known");
 				return AtomicType.ErrorType;
 			}
-		} else {
-			Logger.error("Error : Type not a record type");
+		} else if (type instanceof EnumerationType) {
+			enumType = (EnumerationType) type;
+			if (enumType.contains(this.name)) {
+				return enumType;
+			}	else {
+				Logger.error("Error : Enum field not known");
+				return AtomicType.ErrorType;
+			}
+		} {
+			Logger.error("Error : Type not a record or enum type");
 			return AtomicType.ErrorType;
 		}
 	}

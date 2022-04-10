@@ -109,7 +109,7 @@ public class Conditional implements Instruction {
 			} else if (return_else == return_then) {
 				return return_else;
 			} else {
-				Logger.error("Return types invompatible");
+				Logger.error("Return types incompatible");
 				return AtomicType.ErrorType;
 			}
 		}
@@ -134,14 +134,14 @@ public class Conditional implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.condition.getCode(_factory));
-		_result.append(_factory.createJumpIf("else", 0));
+		_result.add(_factory.createJumpIf("else", 0));
 		_result.append(this.thenBranch.getCode(_factory));
-		_result.append(_factory.createJump("end"));
+		_result.add(_factory.createJump("end"));
 		if (elseBranch != null) {
-			_result.createSuffix("else");
+			_result.addSuffix("else");
 			_result.append(this.elseBranch.getCode(_factory));
 		}
-		_result.createSuffix("end");
+		_result.addSuffix("end");
 		return _result;
 	}
 }

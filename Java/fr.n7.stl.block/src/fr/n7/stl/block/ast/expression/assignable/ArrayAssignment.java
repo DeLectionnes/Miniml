@@ -32,7 +32,7 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 		Fragment _result = _factory.createFragment();
 
 		return _result;
-		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
+		//throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
 	}
 
 	

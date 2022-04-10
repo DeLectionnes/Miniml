@@ -1,5 +1,7 @@
 test {
 	int i = 1;
+	int *a = &i;
+	*a = 50;
 	const int j = 2;
 	< int, int> p = < 3, 4>;
 	<int, <int, int>> q = <5, p>;
@@ -21,6 +23,14 @@ test {
 	}
 	print j;
 
+	typedef enum bizarre{
+		ETRANGE,
+		BIZZARROIDE,
+		LOUCHE,
+		SPATULE
+	} Bizzarre;
+
+	Bizzarre bv = Bizzarre.LOUCHE;
 
 	typedef int Integer;
 	typedef <Integer,Integer> PaireInteger;
@@ -56,6 +66,8 @@ test {
     }
 
 	Point pyt = {tab[3], tab[5], 5.0};
+
+	float l = pyt.length;
 
 	void updateLength(Point p) {
 		p.length = p.x + p.y;
