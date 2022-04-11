@@ -161,7 +161,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in FunctionDeclaration.");
+		this.body.allocateMemory(register, offset);
+		return offset;
 	}
 
 	/* (non-Javadoc)
@@ -169,7 +170,10 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		Fragment _result = _factory.createFragment();
+		_result.createPrefix(this.name);
+		_result.append(this.body.getCode(_factory));
+		return _result;
 	}
 
 }
