@@ -30,9 +30,19 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-
+		int s = this.array.getType().length();
+		IntegerValue i = (IntegerValue) this.index;
+		VariableAssignment va = (VariableAssignment) this.array;
+		_result.add(_factory.createLoad(
+			va.declaration.getRegister(), 
+			va.declaration.getOffset(),
+			va.declaration.getType().length()));
+		_result.add(_factory.createLoadL(i.getValue()));
+		_result.add(_factory.createLoadL(s));
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
+		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
+		_result.append(_factory.createLoadI(s));
 		return _result;
-		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
 	}
 
 	
