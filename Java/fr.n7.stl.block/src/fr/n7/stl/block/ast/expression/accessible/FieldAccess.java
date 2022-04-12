@@ -2,6 +2,8 @@
  * 
  */
 package fr.n7.stl.block.ast.expression.accessible;
+import java.util.LinkedList;
+import java.util.List;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractField;
@@ -32,7 +34,12 @@ public class FieldAccess extends AbstractField implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 		RecordType rec = (RecordType) this.record.getType();
-		int pos = rec.getFields().indexOf(this.name);
+		List<FieldDeclaration> fields = rec.getFields();
+		List<Sting> names = new LinkedList<String>();
+		for (FieldDeclaration f : fields){
+			names.add(f.getName());
+		} 
+		int pos = names.indexOf(this.name);
 		int size = rec.getFields().size();
 		int sizeField = this.field.getType().length();
 

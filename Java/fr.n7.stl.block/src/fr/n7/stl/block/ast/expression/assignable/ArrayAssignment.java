@@ -51,7 +51,7 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 		_result.add(_factory.createLoadL(s));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
-		_result.add(_factory.createLoadI(s));
+		_result.add(_factory.createStoreI(s));
 		return _result;
 		//throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
 	}
