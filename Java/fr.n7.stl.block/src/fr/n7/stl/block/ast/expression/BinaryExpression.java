@@ -92,7 +92,7 @@ public class BinaryExpression implements Expression {
 				} else if (_left.compatibleWith(AtomicType.StringType) && _right.compatibleWith(AtomicType.StringType)) {
 					return AtomicType.StringType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -102,7 +102,7 @@ public class BinaryExpression implements Expression {
 				} else if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.FloatingType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -112,7 +112,7 @@ public class BinaryExpression implements Expression {
 				} else if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.FloatingType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -120,7 +120,7 @@ public class BinaryExpression implements Expression {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.FloatingType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -128,7 +128,7 @@ public class BinaryExpression implements Expression {
 				if (_left.compatibleWith(AtomicType.IntegerType) && _right.compatibleWith(AtomicType.IntegerType))  {
 					return AtomicType.IntegerType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}
 			}
@@ -136,7 +136,7 @@ public class BinaryExpression implements Expression {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}				
 			}
@@ -144,15 +144,15 @@ public class BinaryExpression implements Expression {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}				
 			}
-			case LesserOrEqual:{
+			case LesserOrEqual: {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}				
 			}
@@ -160,7 +160,7 @@ public class BinaryExpression implements Expression {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
 				} else {
-					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
 					return AtomicType.ErrorType;
 				}				
 			}
@@ -173,12 +173,30 @@ public class BinaryExpression implements Expression {
 			} 
 			case Different: {
 				if (_left.compatibleWith(AtomicType.ErrorType) || _right.compatibleWith(AtomicType.ErrorType)) {
+					
 					return AtomicType.ErrorType;
 				} else {
 					return AtomicType.BooleanType;
 				}
 			}
+			case And: {
+				if (_left.compatibleWith(AtomicType.BooleanType) && _right.compatibleWith(AtomicType.BooleanType)) {
+					return AtomicType.BooleanType;
+				} else {
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}				
+			}
+			case Or: {
+				if (_left.compatibleWith(AtomicType.BooleanType) && _right.compatibleWith(AtomicType.BooleanType)) {
+					return AtomicType.BooleanType;
+				} else {
+					Logger.error("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}				
+			}
 			default : 
+			//Branche non accessible : on a fait un switch exhaustif. Laissé en cas de problème au niveau du Lexer er Parser
 			Logger.error("Error : Binary operation not known");
 			return AtomicType.ErrorType;
 		}

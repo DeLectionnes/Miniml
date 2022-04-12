@@ -65,7 +65,7 @@ public class First implements Expression {
 		if (paramType instanceof CoupleType){
 			return ((CoupleType) paramType).getFirst();
 		}else {
-			Logger.error("Error : Type");
+			Logger.error("Error : not a Couple type");
 			return AtomicType.ErrorType;
 		}
 	}

@@ -90,7 +90,7 @@ public class ConditionalExpression implements Expression {
 		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)) {
 			return  this.condition.getType();
 		} else {
-			Logger.error("Error : Type");
+			Logger.error("Error : Not a boolean");
 			return AtomicType.ErrorType;
 		}	}
 

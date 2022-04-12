@@ -80,10 +80,10 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
-		if (!this.assignable.getType().compatibleWith(this.value.getType())) {
-			Logger.error("Error : Type");
+		if (!this.value.getType().compatibleWith(this.assignable.getType())) {
+			Logger.error("Error : Incompatible Type");
 		}
-		return this.assignable.getType().compatibleWith(this.value.getType());
+		return this.value.getType().compatibleWith(this.assignable.getType());
 	}
 	
 	/* (non-Javadoc)

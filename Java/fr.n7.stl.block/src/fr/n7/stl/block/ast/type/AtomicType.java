@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.type;
 
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 /**
  * Elementary types in the Bloc language.
@@ -35,13 +36,17 @@ public enum AtomicType implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		if(_other instanceof NamedType) {
+			_other = ((NamedType) _other).getType();
+		}
+		
 		if (this.equalsTo(_other)) {
 			return true;
 		} else {
 			switch (this) {
 			case NullType : return ((_other != ErrorType) && (_other != VoidType));
 			case IntegerType: return (_other == FloatingType);
-			default: return false;
+			default:  return false;
 			}
 		}
 	}
