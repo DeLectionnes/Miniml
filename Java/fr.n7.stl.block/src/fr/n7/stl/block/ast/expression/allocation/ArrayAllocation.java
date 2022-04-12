@@ -77,7 +77,7 @@ public class ArrayAllocation implements Expression {
 		_result.add(_factory.createLoadL(s.getValue()));
 		_result.add(_factory.createLoadL(this.element.length()));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
-		//MALLOC
+		_result.add(Library.MAlloc);
 		return _result;
 	}
 

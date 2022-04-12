@@ -122,6 +122,7 @@ public class Block {
 	public void allocateMemory(Register _register, int _offset) {
 		int dep = _offset;
 		this.size = 0;
+		this.offset = _offset;
 		for (Instruction i : this.instructions) {
 			dep += i.allocateMemory(_register, dep);
 		}
@@ -139,6 +140,7 @@ public class Block {
 		for (Instruction _instruction : this.instructions) {
 			_result.append(_instruction.getCode(_factory));
 		}
+		_result.add(_factory.createPop(this.offset, this.size));
 		return _result;
 	}
 

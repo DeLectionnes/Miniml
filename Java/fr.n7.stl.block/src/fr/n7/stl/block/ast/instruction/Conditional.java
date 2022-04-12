@@ -133,6 +133,7 @@ public class Conditional implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
+		int num = _factory.createLabelNumber();
 		_result.append(this.condition.getCode(_factory));
 		_result.add(_factory.createJumpIf("else", 0));
 		_result.append(this.thenBranch.getCode(_factory));
