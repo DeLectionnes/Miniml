@@ -1,5 +1,5 @@
 //VariableAssignement ligne 56
-fail{
+fail4{
     void f() {
         print 1;
     }

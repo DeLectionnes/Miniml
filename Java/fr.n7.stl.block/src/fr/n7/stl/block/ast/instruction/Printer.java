@@ -55,7 +55,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		return true;
+		return this.parameter.getType() != AtomicType.ErrorType;
 	}
 
 	@Override

@@ -6,8 +6,11 @@ package fr.n7.stl.block.ast.expression.assignable;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractPointer;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
+import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for an expression whose computation assigns the content of a pointed cell.
@@ -32,16 +35,16 @@ public class PointerAssignment extends AbstractPointer implements AssignableExpr
 		Fragment _result = _factory.createFragment();
 		int s = this.pointer.getType().length();
 		VariableAssignment va = (VariableAssignment) this.pointer;
-		if (this.declaration instanceof VariableDeclaration) {
+		if (va.declaration instanceof VariableDeclaration) {
 			VariableDeclaration d = (VariableDeclaration) va.declaration;
 			_result.add(_factory.createLoad(
 				d.getRegister(), 
 				d.getOffset(),
 				d.getType().length()));
-		} else if(this.declaration instanceof ParameterDeclaration) {
+		} else if(va.declaration instanceof ParameterDeclaration) {
 			Logger.error("ParameterDeclaration not implemented yet.");
 		}
-		_result.append(_factory.createStoreI(s));
+		_result.add(_factory.createStoreI(s));
 		return _result;
 	}
 	

@@ -162,7 +162,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		this.body.allocateMemory(_register, _offset);
-		return offset;
+		return _offset;
 	}
 
 	/* (non-Javadoc)

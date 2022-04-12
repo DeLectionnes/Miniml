@@ -92,8 +92,23 @@ public class FunctionCall implements Expression {
 		for (Expression arg : this.arguments) {
 			result = result && arg.fullResolve(_scope);
 		}
-		this.function = (FunctionDeclaration) _scope.get(name);
-		return result && (this.function != null);
+		Declaration decl = _scope.get(name);
+		if ( decl instanceof FunctionDeclaration) {
+			this.function = (FunctionDeclaration) decl;
+			if (this.function.getParameters().size() == this.arguments.size()) {
+				return result && (this.function != null);
+			} else {
+				Logger.error("Incorrect number of parameters");
+				return false;
+			}
+			
+		} else {
+			Logger.error("Object not a function");
+			return false;
+		}
+		
+
+		
 	}
 	
 	/* (non-Javadoc)
@@ -108,15 +123,16 @@ public class FunctionCall implements Expression {
 			for (int i = 0; i < this.arguments.size();i++) {
 				type_args.add(arguments.get(i).getType());
 			}
+
 			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
 			if (functype.compatibleWith(call_type)) {
 				return functype.getResultType();
 			} else {
-				Logger.error("Error : Type");
+				Logger.error("Error : Return type of the wrong type");
 				return AtomicType.ErrorType;
 			}
 		} else  {
-			Logger.error("Error : Type");
+			Logger.error("Error : not a function type");
 			return AtomicType.ErrorType;
 		}
 	}

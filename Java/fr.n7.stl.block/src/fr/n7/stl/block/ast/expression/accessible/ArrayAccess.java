@@ -5,7 +5,9 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
+import fr.n7.stl.block.ast.expression.BinaryOperator;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -38,7 +40,7 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 		_result.add(_factory.createLoadL(s));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
-		_result.append(_factory.createLoadI(s));
+		_result.add(_factory.createLoadI(s));
 		return _result;
 	}
 

@@ -85,7 +85,9 @@ public class BinaryExpression implements Expression {
 		Type _right = this.right.getType();
 		switch (this.operator) {
 			case Add: {
-				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+				if (_left.compatibleWith(AtomicType.IntegerType) && _right.compatibleWith(AtomicType.IntegerType)) {
+					return AtomicType.IntegerType;
+				} else if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.FloatingType;
 				} else if (_left.compatibleWith(AtomicType.StringType) && _right.compatibleWith(AtomicType.StringType)) {
 					return AtomicType.StringType;
@@ -94,8 +96,26 @@ public class BinaryExpression implements Expression {
 					return AtomicType.ErrorType;
 				}
 			}
-			case Substract:
-			case Multiply:
+			case Substract: {
+				if (_left.compatibleWith(AtomicType.IntegerType) && _right.compatibleWith(AtomicType.IntegerType)) {
+					return AtomicType.IntegerType;
+				} else if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.FloatingType;
+				} else {
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}
+			}
+			case Multiply: {
+				if (_left.compatibleWith(AtomicType.IntegerType) && _right.compatibleWith(AtomicType.IntegerType)) {
+					return AtomicType.IntegerType;
+				} else if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.FloatingType;
+				} else {
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}
+			}
 			case Divide: {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.FloatingType;
@@ -112,9 +132,30 @@ public class BinaryExpression implements Expression {
 					return AtomicType.ErrorType;
 				}
 			}
-			case Lesser:
-			case Greater:
-			case LesserOrEqual:
+			case Lesser: {
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.BooleanType;
+				} else {
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}				
+			}
+			case Greater: {
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.BooleanType;
+				} else {
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}				
+			}
+			case LesserOrEqual:{
+				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
+					return AtomicType.BooleanType;
+				} else {
+					Logger.warning("Type error in binary expression : " + this.operator + " parameters " + _left + " " + _right);
+					return AtomicType.ErrorType;
+				}				
+			}
 			case GreaterOrEqual: {
 				if (_left.compatibleWith(AtomicType.FloatingType) && _right.compatibleWith(AtomicType.FloatingType)) {
 					return AtomicType.BooleanType;
@@ -123,7 +164,13 @@ public class BinaryExpression implements Expression {
 					return AtomicType.ErrorType;
 				}				
 			}
-			case Equals:
+			case Equals: {
+				if (_left.compatibleWith(AtomicType.ErrorType) || _right.compatibleWith(AtomicType.ErrorType)) {
+					return AtomicType.ErrorType;
+				} else {
+					return AtomicType.BooleanType;
+				}
+			} 
 			case Different: {
 				if (_left.compatibleWith(AtomicType.ErrorType) || _right.compatibleWith(AtomicType.ErrorType)) {
 					return AtomicType.ErrorType;
@@ -132,7 +179,7 @@ public class BinaryExpression implements Expression {
 				}
 			}
 			default : 
-			Logger.error("Error : Type");
+			Logger.error("Error : Binary operation not known");
 			return AtomicType.ErrorType;
 		}
 	}

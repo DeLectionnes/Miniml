@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.type.ArrayType;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 import fr.n7.stl.block.ast.expression.value.IntegerValue;

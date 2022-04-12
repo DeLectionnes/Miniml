@@ -32,7 +32,7 @@ public class PointerAccess extends AbstractPointer implements Expression {
 		Fragment _result = _factory.createFragment();
 		_result.append(this.pointer.getCode(_factory));
 		int s = this.pointer.getType().length();
-		_result.append(_factory.createLoadI(s));
+		_result.add(_factory.createLoadI(s));
 		return _result;
 	}
 

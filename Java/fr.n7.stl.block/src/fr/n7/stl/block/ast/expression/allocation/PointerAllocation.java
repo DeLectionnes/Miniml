@@ -62,7 +62,7 @@ public class PointerAllocation implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-		_result.add(_factory.createLoadA(this.element.length()));
+		//_result.add(_factory.createLoadA(this.element.length()));
 		return _result;
 	}
 
