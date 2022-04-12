@@ -84,7 +84,7 @@ public class Iteration implements Instruction {
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		this.body.allocateMemory(_register, _offset);
-		return 0;
+		return _offset;
 	}
 
 	/* (non-Javadoc)
