@@ -48,7 +48,7 @@ public class Second implements Expression {
 		if (paramType instanceof CoupleType){
 			return ((CoupleType) paramType).getSecond();
 		}else {
-			Logger.error("Error : Type");
+			Logger.error("Error : Not a couple type");
 			return AtomicType.ErrorType;
 		}
 	}

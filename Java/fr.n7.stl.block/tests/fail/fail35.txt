@@ -1,0 +1,5 @@
+//Constant Declaration ligne 112
+test34{
+    float i = 5.0;
+    i = 5+3;
+}

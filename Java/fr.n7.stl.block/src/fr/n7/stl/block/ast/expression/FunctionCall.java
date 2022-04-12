@@ -132,6 +132,7 @@ public class FunctionCall implements Expression {
 				return AtomicType.ErrorType;
 			}
 		} else  {
+			//Branche morte, car erreur attrapée avant au resolve. Laissé par cohérence au niveau des instanceof.
 			Logger.error("Error : not a function type");
 			return AtomicType.ErrorType;
 		}

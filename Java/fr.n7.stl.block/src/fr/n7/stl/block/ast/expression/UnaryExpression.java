@@ -71,7 +71,7 @@ public class UnaryExpression implements Expression {
 					if (resultType.compatibleWith(AtomicType.BooleanType))  {
 						return resultType;
 					} else {
-						Logger.warning("Type error in unary expression : Negate parameter " + resultType);
+						Logger.error("Type error in unary expression : Negate parameter " + resultType);
 						return AtomicType.ErrorType;
 					}
 				}
@@ -79,12 +79,12 @@ public class UnaryExpression implements Expression {
 					if (resultType.compatibleWith(AtomicType.FloatingType)) {
 						return resultType;
 					} else {
-						Logger.warning("Type error in unary expression : Opposite parameter " + resultType);
+						Logger.error("Type error in unary expression : Opposite parameter " + resultType);
 						return AtomicType.ErrorType;
 					}
 				}
 				default : 
-				Logger.error("Error : Type");
+				Logger.error("Error : This error should never happen, the switch is exhaustive");
 				return AtomicType.ErrorType;
 			}
 		}
