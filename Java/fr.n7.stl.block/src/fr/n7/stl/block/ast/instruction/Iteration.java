@@ -68,7 +68,7 @@ public class Iteration implements Instruction {
 		if(result_condition) {
 			return result_body;
 		} else {
-			Logger.error("Error : Type.");
+			Logger.error("Error : Condition not boolean.");
 			return false;
 		}
 	}

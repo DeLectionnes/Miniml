@@ -1,7 +1,5 @@
-//FonctionCall ligne 105
+//FonctionCall ligne 106
 test30{
-    int pgcd(int x, int y) {
-        return 5.0;
-    }
-    print pgcd(4,3);
+    int z = 5;
+    print z(4,3);
 }

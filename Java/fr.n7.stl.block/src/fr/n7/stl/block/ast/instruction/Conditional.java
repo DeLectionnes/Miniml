@@ -81,34 +81,34 @@ public class Conditional implements Instruction {
 	@Override
 	public boolean checkType() {
 		boolean condition_result = this.condition.getType().compatibleWith(AtomicType.BooleanType);
-		boolean then_result = this.thenBranch.checkType();
-		if (this.elseBranch != null) {
-			boolean else_result = this.elseBranch.checkType();
-			if (!(condition_result && then_result && else_result)) {
-				Logger.error("Error : Type");
-				return false;
+		if (condition_result) {
+			boolean then_result = this.thenBranch.checkType();
+			if (this.elseBranch != null) {
+				boolean else_result = this.elseBranch.checkType();
+				return condition_result && then_result && else_result;
 			}
-			return true;
-		}
-		if (!(condition_result && then_result)) {
-			Logger.error("Error : Type");
+			return then_result;
+		} else {
+			Logger.error("Condition not boolean");
 			return false;
 		}
-		return true;
 	}
 
 	@Override
 	public Type returnsTo(){
 		Type return_then = thenBranch.returnsTo();
+		
 		if (elseBranch == null) {
 			return return_then;
 		} else {
-			Type return_else = thenBranch.returnsTo();
+			
+			Type return_else = elseBranch.returnsTo();
 			if (return_else == AtomicType.VoidType || return_then == AtomicType.VoidType) {
 				return AtomicType.VoidType;
 			} else if (return_else == return_then) {
 				return return_else;
 			} else {
+				
 				Logger.error("Return types incompatible");
 				return AtomicType.ErrorType;
 			}

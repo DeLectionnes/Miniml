@@ -55,7 +55,7 @@ public class ArrayType implements Type {
 		if (_other instanceof ArrayType) {
 			return new ArrayType(this.element.merge(((ArrayType)_other).element));
 		} else {
-			Logger.error("Error : Type");
+			Logger.error("Error : Type not Array type");
 			return AtomicType.ErrorType;
 		}
 	}

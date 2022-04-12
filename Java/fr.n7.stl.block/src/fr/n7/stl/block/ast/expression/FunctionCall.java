@@ -116,21 +116,10 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		List<Type> type_args = new ArrayList<Type>();
 		Type type = this.function.getType();
 		if (type instanceof FunctionType) {
-			FunctionType functype = (FunctionType) this.function.getType();
-			for (int i = 0; i < this.arguments.size();i++) {
-				type_args.add(arguments.get(i).getType());
-			}
-
-			FunctionType call_type = new FunctionType(functype.getResultType(), type_args);
-			if (functype.compatibleWith(call_type)) {
-				return functype.getResultType();
-			} else {
-				Logger.error("Error : Return type of the wrong type");
-				return AtomicType.ErrorType;
-			}
+			FunctionType functype = (FunctionType) type;
+			return functype.getResultType();
 		} else  {
 			//Branche morte, car erreur attrapée avant au resolve. Laissé par cohérence au niveau des instanceof.
 			Logger.error("Error : not a function type");

@@ -100,6 +100,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 * @see fr.n7.stl.block.ast.Declaration#getType()
 	 */
 	@Override
+	//N'est jamais appelée, car les fonctions
 	public Type getType() {
 		if (!this.body.returnsTo().compatibleWith(this.type)) {
 			Logger.error("Return type incorrect");

@@ -133,7 +133,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		}
 		boolean result = this.value.getType().compatibleWith(this.type);
 		if (! result) {
-			Logger.error("Error : Type.");
+			Logger.error("Error : Incompatible type.");
 		}
 		return result;
 	}
