@@ -54,7 +54,18 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in AddressAccess.");
+		Fragment _result = _factory.createFragment();
+		VariableAssignment va = (VariableAssignment) this.accessible;
+		if (va.declaration instanceof VariableDeclaration) {
+			VariableDeclaration d = (VariableDeclaration) va.declaration;
+			_result.add(_factory.createLoadA(
+				d.getRegister(), 
+				d.getOffset(),
+				d.getType().length()));
+		} else if(va.declaration instanceof ParameterDeclaration) {
+			Logger.error("ParameterDeclaration not implemented yet.");
+		}
+		return _result;
 	}
 
 }
