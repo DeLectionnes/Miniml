@@ -35,10 +35,15 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 		int s = this.array.getType().length();
 		IntegerValue i = (IntegerValue) this.index;
 		VariableAssignment va = (VariableAssignment) this.array;
-		_result.add(_factory.createLoad(
-			va.declaration.getRegister(), 
-			va.declaration.getOffset(),
-			va.declaration.getType().length()));
+		if (this.declaration instanceof VariableDeclaration) {
+			VariableDeclaration d = (VariableDeclaration) va.declaration;
+			_result.add(_factory.createLoad(
+				d.getRegister(), 
+				d.getOffset(),
+				d.getType().length()));
+		} else if(this.declaration instanceof ParameterDeclaration) {
+			Logger.error("ParameterDeclaration not implemented yet.");
+		}
 		_result.add(_factory.createLoadL(i.getValue()));
 		_result.add(_factory.createLoadL(s));
 		_result.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));

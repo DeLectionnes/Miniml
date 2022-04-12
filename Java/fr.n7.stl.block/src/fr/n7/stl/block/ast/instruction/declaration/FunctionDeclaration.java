@@ -161,7 +161,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		this.body.allocateMemory(register, offset);
+		this.body.allocateMemory(_register, _offset);
 		return offset;
 	}
 
@@ -171,7 +171,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-		_result.createPrefix(this.name);
+		_result.addPrefix(this.name);
 		_result.append(this.body.getCode(_factory));
 		return _result;
 	}

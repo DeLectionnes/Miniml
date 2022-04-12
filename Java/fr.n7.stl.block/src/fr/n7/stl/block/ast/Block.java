@@ -35,6 +35,7 @@ public class Block {
 	protected HierarchicalScope<Declaration> tds;
 
 	private int size;
+	private int offset;
 	/**
 	 * Constructor for a block.
 	 */

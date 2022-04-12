@@ -29,7 +29,20 @@ public class PointerAssignment extends AbstractPointer implements AssignableExpr
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in PointerAssignment.");
+		Fragment _result = _factory.createFragment();
+		int s = this.pointer.getType().length();
+		VariableAssignment va = (VariableAssignment) this.pointer;
+		if (this.declaration instanceof VariableDeclaration) {
+			VariableDeclaration d = (VariableDeclaration) va.declaration;
+			_result.add(_factory.createLoad(
+				d.getRegister(), 
+				d.getOffset(),
+				d.getType().length()));
+		} else if(this.declaration instanceof ParameterDeclaration) {
+			Logger.error("ParameterDeclaration not implemented yet.");
+		}
+		_result.append(_factory.createStoreI(s));
+		return _result;
 	}
 	
 }

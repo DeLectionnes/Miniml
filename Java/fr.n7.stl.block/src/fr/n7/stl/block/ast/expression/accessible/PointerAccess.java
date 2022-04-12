@@ -29,7 +29,11 @@ public class PointerAccess extends AbstractPointer implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode is not implemented in PointerAccess.");
+		Fragment _result = _factory.createFragment();
+		_result.append(this.pointer.getCode(_factory));
+		int s = this.pointer.getType().length();
+		_result.append(_factory.createLoadI(s));
+		return _result;
 	}
 
 }

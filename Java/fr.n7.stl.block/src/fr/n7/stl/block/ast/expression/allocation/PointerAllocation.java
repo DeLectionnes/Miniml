@@ -61,7 +61,9 @@ public class PointerAllocation implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in PointerAllocation.");
+		Fragment _result = _factory.createFragment();
+		_result.add(_factory.createLoadA(this.element.length()));
+		return _result;
 	}
 
 }
