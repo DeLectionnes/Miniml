@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractField;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.type.RecordType;
+import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -36,7 +37,7 @@ public class FieldAccess extends AbstractField implements Expression {
 		Fragment _result = _factory.createFragment();
 		RecordType rec = (RecordType) this.record.getType();
 		List<FieldDeclaration> fields = rec.getFields();
-		List<Sting> names = new LinkedList<String>();
+		List<String> names = new LinkedList<String>();
 		for (FieldDeclaration f : fields){
 			names.add(f.getName());
 		} 

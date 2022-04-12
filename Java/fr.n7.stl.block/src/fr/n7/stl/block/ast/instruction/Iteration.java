@@ -93,8 +93,9 @@ public class Iteration implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
-		_result.addPrefix("begin");
+
 		_result.append(this.condition.getCode(_factory));
+		_result.addPrefix("begin");
 		_result.add(_factory.createJumpIf("end", 0));
 		_result.append(this.body.getCode(_factory));
 		_result.add(_factory.createJump("begin"));
