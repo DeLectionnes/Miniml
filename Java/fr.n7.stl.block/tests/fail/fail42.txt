@@ -4,8 +4,9 @@ test42{
         if(i==2) {
             return "5";
         } else {
-            return i;
+            
         }
+        return 5.0;
     }
 
     float i = pgcd(5);

@@ -38,6 +38,17 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	protected Expression value;
 
 	/**
+	 * Address register that contains the base address used to store the declared variable.
+	 */
+	protected Register register;
+	
+	/**
+	 * Offset from the base address used to store the declared variable
+	 * i.e. the size of the memory allocated to the previous declared variables
+	 */
+	protected int offset;
+
+	/**
 	 * Builds an AST node for a constant declaration
 	 * @param _name : Name of the constant
 	 * @param _type : AST node for the type of the constant
@@ -124,7 +135,9 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		return 0;
+		this.register = _register;
+		this.offset = _offset;
+		return _offset + this.type.length();
 	}
 
 	/* (non-Javadoc)
@@ -132,7 +145,11 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConstantDeclaration.");
+		Fragment _result = _factory.createFragment();
+		_result.add(_factory.createPush(this.type.length()));
+		_result.append(this.value.getCode(_factory));
+		_result.add(_factory.createStore(this.register, this.offset, this.type.length()));
+		return _result;
 	}
 
 }
